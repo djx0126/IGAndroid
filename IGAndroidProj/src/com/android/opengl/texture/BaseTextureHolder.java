@@ -12,7 +12,7 @@ import com.android.opengl.utils.OpenGLUtils;
 
 public abstract class BaseTextureHolder {
     public static final float Z = BaseRenderer.Z;
-    protected GL10 gl;
+    protected BaseRenderer myRenderer;
     protected ShortBuffer bufferV;
     protected ShortBuffer bufferT;
     protected ShortBuffer bufferI;
@@ -27,9 +27,9 @@ public abstract class BaseTextureHolder {
      * draw at (posX,posY) by default at (0,0)
      */
     public void draw(int posX, int posY) {
-        gl.glLoadIdentity();
-        BaseRenderer.loadIdentity();
-        gl.glTranslatef(posX, posY, Z);
+        myRenderer.gl.glLoadIdentity();
+        myRenderer.loadIdentity();
+        myRenderer.gl.glTranslatef(posX, posY, Z);
         draw();
     }
 
@@ -42,11 +42,11 @@ public abstract class BaseTextureHolder {
      * 2,translatef 3,scalef 4,draw
      */
     public void draw(int posX, int posY, float scaleX, float scaleY) {
-        gl.glLoadIdentity();
-        BaseRenderer.loadIdentity();
-        gl.glTranslatef(posX, posY, Z);
-        
-        gl.glScalef(scaleX, scaleY, 1.0f);
+        myRenderer.gl.glLoadIdentity();
+        myRenderer.loadIdentity();
+        myRenderer.gl.glTranslatef(posX, posY, Z);
+
+        myRenderer.gl.glScalef(scaleX, scaleY, 1.0f);
         draw();
     }
 
@@ -57,17 +57,12 @@ public abstract class BaseTextureHolder {
      *            if need to recycle the bitmap after the bind? default is
      *            recycle *
      */
-    protected void bindTexture(int texture, Bitmap bitmap,
-            boolean recycleAfterBind) {
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, texture);
-        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S,
-                GL10.GL_CLAMP_TO_EDGE);
-        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,
-                GL10.GL_CLAMP_TO_EDGE);
-        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER,
-                GL10.GL_NEAREST);
-        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER,
-                GL10.GL_LINEAR);
+    protected void bindTexture(int texture, Bitmap bitmap, boolean recycleAfterBind) {
+        myRenderer.gl.glBindTexture(GL10.GL_TEXTURE_2D, texture);
+        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
+        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
+        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
         GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
         if (recycleAfterBind) {
             if (bitmap != null) {
@@ -109,9 +104,9 @@ public abstract class BaseTextureHolder {
         bufferI = OpenGLUtils.initBuffer(arrayI);
     }
 
-    public BaseTextureHolder(GL10 gl) {
-        this.gl = gl;
+    public BaseTextureHolder(BaseRenderer pRenderer) {
+        this.myRenderer = pRenderer;
         initTexBufferShortUnit();
-        texture = initTexture(gl);
+        texture = initTexture(myRenderer.gl);
     }
 }

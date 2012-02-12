@@ -2,19 +2,18 @@ package com.android.object.drawable;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Context;
-
+import com.android.opengl.BaseGLSurfaceView;
 
 public abstract class BaseDrawableObject implements IDrawable {
     public int posX;
     public int posY;
     public boolean initiated = false;
     public boolean active = true;
+    public BaseGLSurfaceView myView;
     public GL10 gl;
-    protected final Context context;
 
-    public BaseDrawableObject(Context context) {
-        this.context = context;
+    public BaseDrawableObject(BaseGLSurfaceView pView) {
+        this.myView = pView;
 
     }
 

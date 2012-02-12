@@ -3,7 +3,6 @@ package com.android.opengl;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 
@@ -11,15 +10,16 @@ import com.android.object.drawable.IDrawable;
 import com.android.utils.FPS;
 
 public class BaseRenderer implements GLSurfaceView.Renderer {
-    //private final Context context;
-    public static GL10 gl;
+    // private final Context context;
+    public GL10 gl;
     public static final float Z = -1f;
     public static final float TARGETFPS = 60f;
-    public static int viewWidth = 0;
-    public static int viewHeight = 0;
-    private IDrawable myDrawable;
+    public int viewWidth = 0;
+    public int viewHeight = 0;
+    protected IDrawable myDrawable;
+    protected Runnable createdHook;
 
-    private final FPS myFPS = new FPS();
+    protected final FPS myFPS = new FPS();
 
     public void onDrawFrame(GL10 gl) {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
@@ -30,8 +30,14 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
         myFPS.tick(TARGETFPS);
     }
 
+    /**
+     * @param pDrawable
+     *            the IDrawable to be draw the IDrawable should be initialized.
+     *            if the IDrawable is set before the renderer is Created, the
+     *            IDrawable can be initialize at the end of creating function.
+     */
     public void setDrawable(IDrawable pDrawable) {
-        this.myDrawable = pDrawable;
+        myDrawable = pDrawable;
     }
 
     public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -53,17 +59,18 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
         gl.glMatrixMode(GL10.GL_PROJECTION); // set matrix to projection mode
         gl.glLoadIdentity(); // reset the matrix to its default state
         // set leftdown(0,0) rightup(viewWidth,viewHeight)
-        gl.glFrustumf(-viewWidth/2, viewWidth/2, -viewHeight/2, viewHeight/2, 1f, 3f); // apply the
-                                                             // projection
-                                                             // matrix
+        gl.glFrustumf(-viewWidth / 2, viewWidth / 2, -viewHeight / 2, viewHeight / 2, 1f, 3f); // apply
+                                                                                               // the
+        // projection
+        // matrix
 
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
     }
 
-    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+    public void onSurfaceCreated(GL10 pGl, EGLConfig config) {
         Log.d("MyRenderer", "onSurfaceCreated");
-        BaseRenderer.gl = gl;
+        gl = pGl;
 
         gl.glDisable(GL10.GL_DITHER);
         gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_FASTEST);
@@ -80,27 +87,36 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
         if (myDrawable != null) {
             myDrawable.initDrawable(gl);
         }
+
+        if (createdHook != null) {
+            new Thread(createdHook).start();
+        }
+        Log.d("MyRenderer", "after onSurfaceCreated");
     }
-    
+
     public BaseRenderer() {
         Log.d("MyRenderer", "Constructor");
     }
 
-    public BaseRenderer(Context pContext) {
+    public BaseRenderer(int pWidth, int pHeight) {
         Log.d("MyRenderer", "Constructor");
-        //context = pContext;
-    }
-
-    public BaseRenderer(Context pContext, int pWidth, int pHeight) {
-        Log.d("MyRenderer", "Constructor");
-        //context = pContext;
         viewWidth = pWidth;
         viewHeight = pHeight;
     }
-    
-    public static void loadIdentity(){
-    	gl.glLoadIdentity();
-        gl.glTranslatef(-viewWidth/2, -viewHeight/2, 0f);
+
+    /**
+     * @param task
+     *            the runnable to be executed after the renderer is created.
+     * @return this for the SET pattern
+     */
+    public BaseRenderer setCreatedHook(Runnable task) {
+        createdHook = task;
+        return this;
+    }
+
+    public void loadIdentity() {
+        gl.glLoadIdentity();
+        gl.glTranslatef(-viewWidth / 2, -viewHeight / 2, 0f);
     }
 
 }

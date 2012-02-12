@@ -1,10 +1,10 @@
 package com.android.game.IG;
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.util.Log;
 
 import com.android.object.drawable.BaseDrawableObject;
+import com.android.opengl.BaseGLSurfaceView;
 import com.android.opengl.texture.BitmapTextureHolder;
 import com.android.opengl.texture.text.StringTextureHolder;
 import com.android.utils.FPS;
@@ -29,8 +29,7 @@ public class Scene extends BaseDrawableObject {
 
         textTexture.draw(300, 50);
 
-        textTexture.setText(FormatFloat.toString3(myFPS.getFPS()))
-                .updateBitmap();
+        textTexture.setText(FormatFloat.toString3(myFPS.getFPS())).updateBitmap();
         textTexture.draw(300, 100, 2f);
 
         bitmapTexture2.draw(100, 100, 500, 190);
@@ -41,22 +40,21 @@ public class Scene extends BaseDrawableObject {
 
         bitmapTexture.draw(600, 300, 100.0f, 100.0f);
 
-        // zooTexture.draw(300,200,200,100);
+        zooTexture.draw(300, 200, 200, 100);
+        zooTexture.draw(400, 150, 200, 100);
     }
 
     @Override
     public void initDrawable() {
         Log.d("Scene", "initTexture");
 
-        textTexture = new StringTextureHolder(gl, "abogt", 64,
-                Typeface.DEFAULT, 128, 0, 255, 0);
-        bitmapTexture = new BitmapTextureHolder(gl, context,
-                R.drawable.smilebox);
-        bitmapTexture2 = new BitmapTextureHolder(gl, context, R.drawable.pic2);
-        // zooTexture = new BitmapTextureHolder(gl, context, R.drawable.zoo);
+        textTexture = new StringTextureHolder(myView.mRenderer, "abogt", 64, Typeface.DEFAULT, 128, 0, 255, 0);
+        bitmapTexture = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.smilebox);
+        bitmapTexture2 = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.pic2);
+        zooTexture = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.zoo);
     }
 
-    public Scene(Context context) {
-        super(context);
+    public Scene(BaseGLSurfaceView pView) {
+        super(pView);
     }
 }
