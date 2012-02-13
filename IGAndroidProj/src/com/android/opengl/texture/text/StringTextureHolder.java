@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 
 import com.android.opengl.BaseRenderer;
 import com.android.opengl.texture.BaseTextureHolder;
+import com.android.opengl.utils.BaseGLUnit;
 
 /**
  * @author Dave the holder holds all the printable string's texture and buffer
@@ -93,12 +94,9 @@ public class StringTextureHolder extends BaseTextureHolder {
     public void drawText(GL10 gl) {
         gl.glEnable(GL10.GL_BLEND);
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-        // gl.glColor4f(colorR, colorG, colorB, colorA);
         gl.glScalef(scaleW, scaleH, 1.0f);
         gl.glBindTexture(GL10.GL_TEXTURE_2D, texture);
-        gl.glVertexPointer(3, GL10.GL_SHORT, 0, bufferV);
-        gl.glTexCoordPointer(2, GL10.GL_SHORT, 0, bufferT);
-        gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, 4, GL10.GL_UNSIGNED_SHORT, bufferI);
+        BaseGLUnit.drawUnit(myRenderer.gl);
         gl.glDisable(GL10.GL_BLEND);
     }
 

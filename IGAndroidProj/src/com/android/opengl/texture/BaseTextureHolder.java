@@ -1,21 +1,15 @@
 package com.android.opengl.texture;
 
-import java.nio.ShortBuffer;
-
 import javax.microedition.khronos.opengles.GL10;
 
 import android.graphics.Bitmap;
 import android.opengl.GLUtils;
 
 import com.android.opengl.BaseRenderer;
-import com.android.opengl.utils.OpenGLUtils;
 
 public abstract class BaseTextureHolder {
     public static final float Z = BaseRenderer.Z;
     protected BaseRenderer myRenderer;
-    protected ShortBuffer bufferV;
-    protected ShortBuffer bufferT;
-    protected ShortBuffer bufferI;
     protected int texture;
 
     /*
@@ -93,20 +87,9 @@ public abstract class BaseTextureHolder {
         return texture;
     }
 
-    protected void initTexBufferShortUnit() {
-        short arrayV[] = { 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0 };
-        bufferV = OpenGLUtils.initBuffer(arrayV);
-
-        short arrayT[] = { 0, 1, 1, 1, 1, 0, 0, 0 };
-        bufferT = OpenGLUtils.initBuffer(arrayT);
-
-        short arrayI[] = { 0, 1, 3, 2 };
-        bufferI = OpenGLUtils.initBuffer(arrayI);
-    }
-
     public BaseTextureHolder(BaseRenderer pRenderer) {
         this.myRenderer = pRenderer;
-        initTexBufferShortUnit();
+        // initTexBufferShortUnit();
         texture = initTexture(myRenderer.gl);
     }
 }

@@ -37,7 +37,7 @@ public class BaseOpenGLActivity extends Activity {
         // setContentView(R.layout.main);
 
         Log.d("Android3DBasicActivity", "onCreate");
-        System.gc();
+
         context = this;
 
         initView();
@@ -51,6 +51,7 @@ public class BaseOpenGLActivity extends Activity {
 
         myGLView = new BaseGLSurfaceView(this);
         setView(myGLView);
+        System.gc();
     }
 
     public void setView(BaseGLSurfaceView pView) {

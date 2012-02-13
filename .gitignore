@@ -3,6 +3,9 @@
 IGAndroidProj/bin
 #bin/**/*
 
+*.mp3
+*.jpg
+*.png
 *.apk
 
 *.ap_

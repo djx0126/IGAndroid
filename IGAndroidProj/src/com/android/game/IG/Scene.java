@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.android.object.drawable.BaseDrawableObject;
 import com.android.opengl.BaseGLSurfaceView;
+import com.android.opengl.texture.BitmapTextureArrayHolder;
 import com.android.opengl.texture.BitmapTextureHolder;
 import com.android.opengl.texture.text.StringTextureHolder;
 import com.android.utils.FPS;
@@ -16,6 +17,8 @@ public class Scene extends BaseDrawableObject {
     private BitmapTextureHolder bitmapTexture;
     private BitmapTextureHolder bitmapTexture2;
     private BitmapTextureHolder zooTexture;
+    private BitmapTextureArrayHolder bitmapTexture3;
+    private BitmapTextureArrayHolder bitmapTexture4;
 
     private final FPS myFPS = new FPS();
 
@@ -38,10 +41,14 @@ public class Scene extends BaseDrawableObject {
 
         bitmapTexture.draw(500, 200, 100.0f, 100.0f);
 
-        bitmapTexture.draw(600, 300, 100.0f, 100.0f);
-
         zooTexture.draw(300, 200, 200, 100);
         zooTexture.draw(400, 150, 200, 100);
+
+        bitmapTexture3.draw(200, 200, 100, 100);
+
+        bitmapTexture4.draw(300, 0, 400, 400);
+
+        bitmapTexture.draw(600, 300, 100.0f, 100.0f);
     }
 
     @Override
@@ -52,6 +59,12 @@ public class Scene extends BaseDrawableObject {
         bitmapTexture = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.smilebox);
         bitmapTexture2 = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.pic2);
         zooTexture = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.zoo);
+
+        bitmapTexture3 = new BitmapTextureArrayHolder(myView.mRenderer, myView.myContext, R.drawable.streetsand160, 5,
+                19);
+        bitmapTexture4 = new BitmapTextureArrayHolder(myView.mRenderer, myView.myContext, R.drawable.streetsand160, 2,
+                4);
+
     }
 
     public Scene(BaseGLSurfaceView pView) {
