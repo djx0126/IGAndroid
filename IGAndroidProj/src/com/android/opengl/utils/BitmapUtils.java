@@ -8,12 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.util.Log;
 
 public class BitmapUtils {
-    private static Canvas canvas = new Canvas();
-    private static Paint paint = new Paint();
     private static int bitmapW;
     private static int bitmapH;
     private static int bitmapW2N;
@@ -40,6 +37,7 @@ public class BitmapUtils {
         Log.d("bitmapH2N", String.valueOf(bitmapH2N));
 
         bitmap = Bitmap.createBitmap(bitmapW2N, bitmapH2N, Config.ARGB_8888);
+        Canvas canvas = new Canvas();
         canvas.setBitmap(bitmap);
         // paint.setARGB(255, 255, 0, 0);
         // canvas.drawRect(0, 0, bitmapW2N, bitmapH2N, paint);
