@@ -23,19 +23,31 @@ public class BitmapTextureArrayHolder extends BaseTextureHolder {
      * @param length
      *            how many sub pics in all (in all rows)
      */
-    public BitmapTextureArrayHolder(BaseRenderer pRenderer, Context context, int resourceId, int nInRow, int length) {
+    public BitmapTextureArrayHolder(BaseRenderer pRenderer, Context context,
+            int resourceId, int nInRow, int length) {
         super(pRenderer);
-        bitmaps = BitmapUtils.splitBitmap(BitmapUtils.createFromResource(context, resourceId), nInRow, length);
+        bitmaps = BitmapUtils.splitBitmap(
+                BitmapUtils.createFromResource(context, resourceId), nInRow,
+                length);
         holders = new BitmapTextureHolder[length];
         for (int i = 0; i < length; i++) {
             holders[i] = new BitmapTextureHolder(pRenderer, bitmaps[i]);
         }
     }
 
+    public BitmapTextureHolder index(int i) {
+        BitmapTextureHolder holder = null;
+        if (i >= 0 && i < holders.length) {
+            holder = holders[i];
+        }
+        return holder;
+    }
+
     @Override
     public void draw() {
         myRenderer.gl.glEnable(GL10.GL_BLEND);
-        myRenderer.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        myRenderer.gl.glBlendFunc(GL10.GL_SRC_ALPHA,
+                GL10.GL_ONE_MINUS_SRC_ALPHA);
         myRenderer.gl.glBindTexture(GL10.GL_TEXTURE_2D, texture);
         BaseGLUnit.drawUnit(myRenderer.gl);
         myRenderer.gl.glDisable(GL10.GL_BLEND);

@@ -25,7 +25,7 @@ public class Loading extends BaseGLSurfaceView {
     public void initViewAsync() {
         Log.d("Loading", "initViewAsync");
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

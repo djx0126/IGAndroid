@@ -19,10 +19,11 @@ public class BitmapUtils {
     private static int bitmapW2N;
     private static int bitmapH2N;
 
-    public static Bitmap create2NBitmapFromResource(Context context, int resourceId) {
+    public static Bitmap create2NBitmapFromResource(Context context,
+            int resourceId) {
         Bitmap bitmap = createFromResource(context, resourceId);
         if (bitmap != null) {
-            bitmap = expandBitmapTo2N(bitmap);
+            bitmap = expandBitmapTo2N(bitmap);//
         }
         return bitmap;
     }
@@ -33,11 +34,16 @@ public class BitmapUtils {
         bitmapH = pBitmap.getHeight();
         bitmapW2N = OpenGLUtils.getNext2N(bitmapW);
         bitmapH2N = OpenGLUtils.getNext2N(bitmapH);
+        Log.d("bitmapW", String.valueOf(bitmapW));
+        Log.d("bitmapH", String.valueOf(bitmapH));
+        Log.d("bitmapW2N", String.valueOf(bitmapW2N));
+        Log.d("bitmapH2N", String.valueOf(bitmapH2N));
 
         bitmap = Bitmap.createBitmap(bitmapW2N, bitmapH2N, Config.ARGB_8888);
         canvas.setBitmap(bitmap);
-        paint.setAlpha(255);
-        canvas.drawBitmap(pBitmap, 0, bitmapH2N - bitmapH, paint);
+        // paint.setARGB(255, 255, 0, 0);
+        // canvas.drawRect(0, 0, bitmapW2N, bitmapH2N, paint);
+        canvas.drawBitmap(pBitmap, 0, bitmapH2N - bitmapH, null);
         return bitmap;
     }
 
@@ -45,13 +51,17 @@ public class BitmapUtils {
         Bitmap[] bitmaps = new Bitmap[length];
         bitmapW = pBitmap.getWidth();
         bitmapH = pBitmap.getHeight();
-        Log.d("BitmapUtils.splitBitmap", "width=" + String.valueOf(bitmapW) + ",height=" + String.valueOf(bitmapH));
+        Log.d("BitmapUtils.splitBitmap", "width=" + String.valueOf(bitmapW)
+                + ",height=" + String.valueOf(bitmapH));
         int subW = bitmapW / nInRow;
         Log.d("BitmapUtils.splitBitmap", "subW=" + String.valueOf(subW));
         for (int i = 0; i < length; i++) {
-            Log.d("BitmapUtils.splitBitmap", "i=" + String.valueOf(i) + ",subX=" + String.valueOf((i % nInRow) * subW)
-                    + ",subY=" + String.valueOf(subW * (i / nInRow)));
-            bitmaps[i] = Bitmap.createBitmap(pBitmap, (i % nInRow) * subW, subW * (i / nInRow), subW, subW);
+            Log.d("BitmapUtils.splitBitmap", "i=" + String.valueOf(i)
+                    + ",subX=" + String.valueOf((i % nInRow) * subW) + ",subY="
+                    + String.valueOf(subW * (i / nInRow)));
+            bitmaps[i] = Bitmap.createBitmap(pBitmap, (i % nInRow) * subW, subW
+                    * (i / nInRow), subW, subW);
+            bitmaps[i] = expandBitmapTo2N(bitmaps[i]);
         }
         return bitmaps;
     }
