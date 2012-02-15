@@ -2,6 +2,8 @@ package com.android.opengl.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -45,8 +47,9 @@ public class BitmapUtils {
         return bitmap;
     }
 
-    public static Bitmap[] splitBitmap(Bitmap pBitmap, int nInRow, int length) {
-        Bitmap[] bitmaps = new Bitmap[length];
+    public static List<Bitmap> splitBitmap(Bitmap pBitmap, int nInRow, int length) {
+        //Bitmap[] bitmaps = new Bitmap[length];
+        List<Bitmap> bitmapList = new ArrayList<Bitmap>();
         bitmapW = pBitmap.getWidth();
         bitmapH = pBitmap.getHeight();
         Log.d("BitmapUtils.splitBitmap", "width=" + String.valueOf(bitmapW)
@@ -57,11 +60,13 @@ public class BitmapUtils {
             Log.d("BitmapUtils.splitBitmap", "i=" + String.valueOf(i)
                     + ",subX=" + String.valueOf((i % nInRow) * subW) + ",subY="
                     + String.valueOf(subW * (i / nInRow)));
-            bitmaps[i] = Bitmap.createBitmap(pBitmap, (i % nInRow) * subW, subW
-                    * (i / nInRow), subW, subW);
-            bitmaps[i] = expandBitmapTo2N(bitmaps[i]);
+            bitmapList.add(expandBitmapTo2N(Bitmap.createBitmap(pBitmap, (i % nInRow) * subW, subW
+                    * (i / nInRow), subW, subW)));
+//            bitmaps[i] = Bitmap.createBitmap(pBitmap, (i % nInRow) * subW, subW
+//                    * (i / nInRow), subW, subW);
+//            bitmaps[i] = expandBitmapTo2N(bitmaps[i]);
         }
-        return bitmaps;
+        return bitmapList;
     }
 
     public static Bitmap createFromResource(Context context, int resourceId) {

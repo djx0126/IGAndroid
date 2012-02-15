@@ -96,7 +96,7 @@ public class StringTextureHolder extends BaseTextureHolder {
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
         gl.glScalef(scaleW, scaleH, 1.0f);
         gl.glBindTexture(GL10.GL_TEXTURE_2D, texture);
-        BaseGLUnit.drawUnit(myRenderer.gl);
+        BaseGLUnit.NORMALSHORT.drawUnit(myRenderer.gl);
         gl.glDisable(GL10.GL_BLEND);
     }
 

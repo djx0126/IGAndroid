@@ -6,11 +6,13 @@ import android.graphics.Bitmap;
 import android.opengl.GLUtils;
 
 import com.android.opengl.BaseRenderer;
+import com.android.opengl.utils.BaseGLUnit;
 
 public abstract class BaseTextureHolder {
     protected static final float Z = BaseRenderer.Z;
     protected BaseRenderer myRenderer;
     protected int texture;
+    protected BaseGLUnit GLUnit = BaseGLUnit.NORMALSHORT;
 
     /*
      * default draw at (0,0) after loadIdentity and translate and scale
@@ -51,17 +53,12 @@ public abstract class BaseTextureHolder {
      *            if need to recycle the bitmap after the bind? default is
      *            recycle *
      */
-    protected void bindTexture(int texture, Bitmap bitmap,
-            boolean recycleAfterBind) {
+    protected void bindTexture(int texture, Bitmap bitmap, boolean recycleAfterBind) {
         myRenderer.gl.glBindTexture(GL10.GL_TEXTURE_2D, texture);
-        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D,
-                GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
-        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D,
-                GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
-        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D,
-                GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
-        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D,
-                GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
+        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
+        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
+        myRenderer.gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
         GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
         if (recycleAfterBind) {
             if (bitmap != null) {
@@ -96,5 +93,10 @@ public abstract class BaseTextureHolder {
         this.myRenderer = pRenderer;
         // initTexBufferShortUnit();
         texture = initTexture(myRenderer.gl);
+    }
+
+    public BaseTextureHolder setGLUnit(BaseGLUnit GLUnit) {
+        this.GLUnit = GLUnit;
+        return this;
     }
 }
