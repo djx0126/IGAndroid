@@ -18,8 +18,7 @@ public class BitmapUtils {
     private static int bitmapW2N;
     private static int bitmapH2N;
 
-    public static Bitmap create2NBitmapFromResource(Context context,
-            int resourceId) {
+    public static Bitmap create2NBitmapFromResource(Context context, int resourceId) {
         Bitmap bitmap = createFromResource(context, resourceId);
         if (bitmap != null) {
             bitmap = expandBitmapTo2N(bitmap);//
@@ -48,23 +47,17 @@ public class BitmapUtils {
     }
 
     public static List<Bitmap> splitBitmap(Bitmap pBitmap, int nInRow, int length) {
-        //Bitmap[] bitmaps = new Bitmap[length];
         List<Bitmap> bitmapList = new ArrayList<Bitmap>();
         bitmapW = pBitmap.getWidth();
         bitmapH = pBitmap.getHeight();
-        Log.d("BitmapUtils.splitBitmap", "width=" + String.valueOf(bitmapW)
-                + ",height=" + String.valueOf(bitmapH));
+        Log.d("BitmapUtils.splitBitmap", "width=" + String.valueOf(bitmapW) + ",height=" + String.valueOf(bitmapH));
         int subW = bitmapW / nInRow;
         Log.d("BitmapUtils.splitBitmap", "subW=" + String.valueOf(subW));
         for (int i = 0; i < length; i++) {
-            Log.d("BitmapUtils.splitBitmap", "i=" + String.valueOf(i)
-                    + ",subX=" + String.valueOf((i % nInRow) * subW) + ",subY="
-                    + String.valueOf(subW * (i / nInRow)));
-            bitmapList.add(expandBitmapTo2N(Bitmap.createBitmap(pBitmap, (i % nInRow) * subW, subW
-                    * (i / nInRow), subW, subW)));
-//            bitmaps[i] = Bitmap.createBitmap(pBitmap, (i % nInRow) * subW, subW
-//                    * (i / nInRow), subW, subW);
-//            bitmaps[i] = expandBitmapTo2N(bitmaps[i]);
+            Log.d("BitmapUtils.splitBitmap", "i=" + String.valueOf(i) + ",subX=" + String.valueOf((i % nInRow) * subW)
+                    + ",subY=" + String.valueOf(subW * (i / nInRow)));
+            bitmapList.add(expandBitmapTo2N(Bitmap.createBitmap(pBitmap, (i % nInRow) * subW, subW * (i / nInRow),
+                    subW, subW)));
         }
         return bitmapList;
     }

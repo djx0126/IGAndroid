@@ -3,18 +3,14 @@ package com.android.opengl.texture;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.android.opengl.BaseRenderer;
-import com.android.opengl.utils.BaseGLUnit;
 import com.android.opengl.utils.BitmapUtils;
 
 public class BitmapTextureArrayHolder extends BaseTextureHolder {
-    // public BitmapTextureHolder[] holders;
-    // private final Bitmap[] bitmaps;
+    public int index = 0;
     private final List<Bitmap> bitmapList = new ArrayList<Bitmap>();
     private final List<BitmapTextureHolder> textureHolders = new ArrayList<BitmapTextureHolder>();
 
@@ -30,17 +26,10 @@ public class BitmapTextureArrayHolder extends BaseTextureHolder {
      */
     public BitmapTextureArrayHolder(BaseRenderer pRenderer, Context context, int resourceId, int nInRow, int length) {
         super(pRenderer);
-        // bitmaps = BitmapUtils.splitBitmap(
-        // BitmapUtils.createFromResource(context, resourceId), nInRow,
-        // length);
         bitmapList.addAll(BitmapUtils.splitBitmap(BitmapUtils.createFromResource(context, resourceId), nInRow, length));
         for (Bitmap bitmap : bitmapList) {
             textureHolders.add(new BitmapTextureHolder(pRenderer, bitmap));
         }
-        // holders = new BitmapTextureHolder[length];
-        // for (int i = 0; i < length; i++) {
-        // holders[i] = new BitmapTextureHolder(pRenderer, bitmaps[i]);
-        // }
     }
 
     public BitmapTextureHolder item(int i) {
@@ -53,11 +42,8 @@ public class BitmapTextureArrayHolder extends BaseTextureHolder {
 
     @Override
     public void draw() {
-        myRenderer.gl.glEnable(GL10.GL_BLEND);
-        myRenderer.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-        myRenderer.gl.glBindTexture(GL10.GL_TEXTURE_2D, texture);
-        BaseGLUnit.NORMALFLOAT.drawUnit(myRenderer.gl);
-        myRenderer.gl.glDisable(GL10.GL_BLEND);
+        if (index >= 0 && index < textureHolders.size()) {
+            item(index).draw();
+        }
     }
-
 }

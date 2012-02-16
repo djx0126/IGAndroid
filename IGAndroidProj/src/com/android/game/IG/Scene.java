@@ -46,7 +46,9 @@ public class Scene extends BaseDrawableObject {
         zooTexture.draw(400, 150, 200, 100);
 
         // bitmapTexture3.item(8).draw(200, 200, 100, 100);
-        bitmapTexture3.item(8).setGLUnit(BaseGLUnit.CENTEREDHALF).draw(200, 200, 100, 100);
+        bitmapTexture3.item(8).setGLUnit(BaseGLUnit.CENTEREDHALF).draw(200, 300, 100);
+
+        bitmapTexture3.item(13).setGLUnit(BaseGLUnit.RIGHTSLOPEDHALF).draw(500, 300, 100);
 
         bitmapTexture4.item(0).draw(400, 0, 400, 400);
 
@@ -58,6 +60,7 @@ public class Scene extends BaseDrawableObject {
         Log.d("Scene", "initTexture");
 
         textTexture = new StringTextureHolder(myView.mRenderer, "abogt", 64, Typeface.DEFAULT, 128, 0, 255, 0);
+        Log.d("Scene", "smilebox");
         bitmapTexture = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.smilebox);
         bitmapTexture2 = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.streetsand160);
         zooTexture = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.zoo);

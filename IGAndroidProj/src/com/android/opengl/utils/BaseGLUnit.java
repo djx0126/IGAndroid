@@ -6,9 +6,13 @@ import java.nio.ShortBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 public class BaseGLUnit {
+    protected static final float SQ2 = 1.4142135623730950488016887242097f;
+
     public static BaseGLUnit NORMALFLOAT = new BaseGLUnit();
     public static BaseGLUnit NORMALSHORT = new ShortUnit();
     public static BaseGLUnit CENTEREDHALF = BaseGLUnit.getCenteredUnit(0.5f);
+    public static BaseGLUnit RIGHTSLOPEDHALF = BaseGLUnit.getRightSlopedUnit(45f, 0.5f);
+
     protected FloatBuffer bufferV;
     protected ShortBuffer bufferT;
     protected ShortBuffer bufferI;
@@ -19,12 +23,12 @@ public class BaseGLUnit {
     }
 
     protected BaseGLUnit(float height) {
-        initVertexBufferFloatUnit(height);
+        initCenteredVertexBufferFloatUnit(height);
         initTexAndIdxBufferUnit();
     }
 
     protected BaseGLUnit(float a, float height) {
-        initVertexBufferFloatUnit(height);
+        initSlopedVertexBufferFloatUnit(a, height);
         initTexAndIdxBufferUnit();
     }
 
@@ -34,16 +38,22 @@ public class BaseGLUnit {
         bufferV = OpenGLUtils.initBuffer(arrayV);
     }
 
-    protected void initVertexBufferFloatUnit(float height) {
+    protected void initCenteredVertexBufferFloatUnit(float height) {
         // Log.d("BaseGLUnit", "initVertexBufferFloatUnit with height");
         float arrayV[] = { 0.5f, 0f, 0f, 1f, 0.5f * height, 0f, 0.5f, 1f * height, 0f, 0f, 0.5f * height, 0f };
         bufferV = OpenGLUtils.initBuffer(arrayV);
     }
 
-    protected void initVertexBufferFloatUnit(float a, float height) {
+    protected void initSlopedVertexBufferFloatUnit(float a, float height) {
         // Log.d("BaseGLUnit", "initVertexBufferFloatUnit with height");
-        float arrayV[] = { 0f, 0f, 0f, 1f, 0f, 0f, 1f, 1f * height, 0f, 0f, 1f * height, 0f };
-        bufferV = OpenGLUtils.initBuffer(arrayV);
+        if (a > 0 && a < 90 || a > 90 && a < 180) {
+            float arrayV[] = { 0f, 0f, 0f, 1f, 0f, 0f, (float) (1f + height / Math.tan(a)), 1f * height, 0f,
+                    (float) (0f + height / Math.tan(a)), 1f * height, 0f };
+            bufferV = OpenGLUtils.initBuffer(arrayV);
+        } else {
+            initVertexBufferFloatUnit();
+        }
+
     }
 
     protected void initTexAndIdxBufferUnit() {
@@ -77,7 +87,7 @@ public class BaseGLUnit {
      * @return
      */
     public static BaseGLUnit getRightSlopedUnit(float a, float height) {
-        return new BaseGLUnit(height);
+        return new BaseGLUnit(a, height);
     }
 
     protected static class ShortUnit extends BaseGLUnit {

@@ -22,13 +22,14 @@ public class BaseGLSurfaceView extends GLSurfaceView {
     public Handler myHandler;
 
     public BaseGLSurfaceView(Context context) {
+        this(context, 0, 0);
+    }
+
+    public BaseGLSurfaceView(Context context, int pWidth, int pHeight) {
         super(context);
         this.myContext = context;
-        DisplayMetrics dm = this.getResources().getDisplayMetrics();
-        viewWidth = dm.widthPixels;
-        viewHeight = dm.heightPixels;
-        Log.d("viewWidth", String.valueOf(viewWidth));
-        Log.d("viewHeight", String.valueOf(viewHeight));
+
+        initViewWidthHeight(pWidth, pHeight);
 
         mRenderer = createRenderer();
 
@@ -40,6 +41,20 @@ public class BaseGLSurfaceView extends GLSurfaceView {
 
         requestFocus();
         setFocusableInTouchMode(true);
+    }
+
+    protected void initViewWidthHeight(int pWidth, int pHeight) {
+        if (pWidth == 0 || pHeight == 0) {
+            DisplayMetrics dm = this.getResources().getDisplayMetrics();
+            viewWidth = dm.widthPixels;
+            viewHeight = dm.heightPixels;
+        } else {
+            viewWidth = pWidth;
+            viewHeight = pHeight;
+        }
+
+        Log.d("viewWidth", String.valueOf(viewWidth));
+        Log.d("viewHeight", String.valueOf(viewHeight));
     }
 
     /**
