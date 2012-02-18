@@ -20,7 +20,7 @@ public class BaseOpenGLActivity extends Activity {
         public void handleMessage(Message msg) {
             Log.d("BaseOpenGLActivity", "handleMessage:" + msg.what);
             switch (msg.what) {
-            case BaseGLSurfaceView.SWITCHVIEW:
+            case BaseGLSurfaceView.MSG_SWITCHVIEW:
                 if (nextView != null) {
                     setView(nextView);
                 }
@@ -50,6 +50,7 @@ public class BaseOpenGLActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         myGLView = new BaseGLSurfaceView(this);
+        myGLView.createRenderer().initView();
         setView(myGLView);
         System.gc();
     }

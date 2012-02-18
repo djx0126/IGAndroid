@@ -15,10 +15,12 @@ public class Game extends BaseGLSurfaceView {
     }
 
     @Override
-    public void initView() {
+    public BaseGLSurfaceView initView() {
         Log.d("Game", "initView");
         myScene = new Scene(this);
+
         mRenderer.setDrawable(myScene);
+        return this;
     }
 
     @Override

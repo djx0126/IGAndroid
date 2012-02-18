@@ -4,7 +4,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.android.opengl.BaseRenderer;
 import com.android.opengl.utils.BitmapUtils;
@@ -22,8 +21,8 @@ public class BitmapTextureHolder extends BaseTextureHolder {
         super(pRenderer);
         bitmap = pBitmap;
         bindTexture(bitmap);
-        Log.d("bitmap w", String.valueOf(bitmap.getWidth()));
-        Log.d("bitmap h", String.valueOf(bitmap.getHeight()));
+        // Log.d("bitmap w", String.valueOf(bitmap.getWidth()));
+        // Log.d("bitmap h", String.valueOf(bitmap.getHeight()));
     }
 
     @Override

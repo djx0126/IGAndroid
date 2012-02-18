@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.util.Log;
 
 public class BitmapUtils {
     private static int bitmapW;
@@ -32,10 +31,10 @@ public class BitmapUtils {
         bitmapH = pBitmap.getHeight();
         bitmapW2N = OpenGLUtils.getNext2N(bitmapW);
         bitmapH2N = OpenGLUtils.getNext2N(bitmapH);
-        Log.d("bitmapW", String.valueOf(bitmapW));
-        Log.d("bitmapH", String.valueOf(bitmapH));
-        Log.d("bitmapW2N", String.valueOf(bitmapW2N));
-        Log.d("bitmapH2N", String.valueOf(bitmapH2N));
+        // Log.d("bitmapW", String.valueOf(bitmapW));
+        // Log.d("bitmapH", String.valueOf(bitmapH));
+        // Log.d("bitmapW2N", String.valueOf(bitmapW2N));
+        // Log.d("bitmapH2N", String.valueOf(bitmapH2N));
 
         bitmap = Bitmap.createBitmap(bitmapW2N, bitmapH2N, Config.ARGB_8888);
         Canvas canvas = new Canvas();
@@ -50,12 +49,14 @@ public class BitmapUtils {
         List<Bitmap> bitmapList = new ArrayList<Bitmap>();
         bitmapW = pBitmap.getWidth();
         bitmapH = pBitmap.getHeight();
-        Log.d("BitmapUtils.splitBitmap", "width=" + String.valueOf(bitmapW) + ",height=" + String.valueOf(bitmapH));
+        // Log.d("BitmapUtils.splitBitmap", "width=" + String.valueOf(bitmapW) +
+        // ",height=" + String.valueOf(bitmapH));
         int subW = bitmapW / nInRow;
-        Log.d("BitmapUtils.splitBitmap", "subW=" + String.valueOf(subW));
+        // Log.d("BitmapUtils.splitBitmap", "subW=" + String.valueOf(subW));
         for (int i = 0; i < length; i++) {
-            Log.d("BitmapUtils.splitBitmap", "i=" + String.valueOf(i) + ",subX=" + String.valueOf((i % nInRow) * subW)
-                    + ",subY=" + String.valueOf(subW * (i / nInRow)));
+            // Log.d("BitmapUtils.splitBitmap", "i=" + String.valueOf(i) +
+            // ",subX=" + String.valueOf((i % nInRow) * subW)
+            // + ",subY=" + String.valueOf(subW * (i / nInRow)));
             bitmapList.add(expandBitmapTo2N(Bitmap.createBitmap(pBitmap, (i % nInRow) * subW, subW * (i / nInRow),
                     subW, subW)));
         }

@@ -5,15 +5,17 @@ import android.util.Log;
 
 import com.android.object.drawable.BaseDrawableObject;
 import com.android.opengl.BaseGLSurfaceView;
+import com.android.opengl.texture.BitmapTextureHolder;
 import com.android.opengl.texture.text.StringTextureHolder;
 
 public class LoadingScene extends BaseDrawableObject {
 
     private StringTextureHolder textTexture;
+    private BitmapTextureHolder bitmapTexture;
 
     @Override
     public void onDraw() {
-        textTexture.draw(300, 50);
+        textTexture.draw(100, 50);
 
     }
 

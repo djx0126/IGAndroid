@@ -4,6 +4,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLSurfaceView;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.object.drawable.IDrawable;
@@ -13,11 +14,12 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
     // private final Context context;
     public GL10 gl;
     public static final float Z = -1f;
+    public static final int MSG_CREATED = 1;
     public static final float TARGETFPS = 60f;
     public int viewWidth = 0;
     public int viewHeight = 0;
     protected IDrawable myDrawable;
-    protected Runnable createdHook;
+    protected AsyncTask taskOnCreated;
 
     protected final FPS myFPS = new FPS();
 
@@ -88,10 +90,13 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
             myDrawable.initDrawable(gl);
         }
 
-        if (createdHook != null) {
-            new Thread(createdHook).start();
+        if (taskOnCreated != null) {
+            taskOnCreated.execute();
         }
-        Log.d("MyRenderer", "after onSurfaceCreated");
+        // System.out.println("[MyRenderer]Created:" +
+        // Thread.currentThread().toString() + "/"
+        // + Thread.currentThread().getId());
+        // Log.d("MyRenderer", "after onSurfaceCreated");
     }
 
     public BaseRenderer() {
@@ -109,8 +114,9 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
      *            the runnable to be executed after the renderer is created.
      * @return this for the SET pattern
      */
-    public BaseRenderer setCreatedHook(Runnable task) {
-        createdHook = task;
+
+    public BaseRenderer setCreatedTask(AsyncTask task) {
+        taskOnCreated = task;
         return this;
     }
 

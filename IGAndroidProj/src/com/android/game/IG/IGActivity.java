@@ -14,7 +14,8 @@ public class IGActivity extends BaseOpenGLActivity {
         // …Ë÷√»´∆¡
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        myGLView = new Loading(this);
+        myGLView = new Loading(this).setViewWidthHeight(320, 240);
+        myGLView.createRenderer().initView();
         setView(myGLView);
     }
 }
