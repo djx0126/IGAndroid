@@ -16,7 +16,7 @@ public class Loading extends BaseGLSurfaceView {
 
     @Override
     public BaseGLSurfaceView initView() {
-        Log.d("Loading", "initView");
+        Log.d("Loading", "initView:" + Thread.currentThread().toString() + "/" + Thread.currentThread().getId());
         myLoadingScene = new LoadingScene(this);
         mRenderer.setDrawable(myLoadingScene);
         return this;
@@ -30,7 +30,7 @@ public class Loading extends BaseGLSurfaceView {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("[Loading]" + Thread.currentThread().toString() + "/" + Thread.currentThread().getId());
+        Log.d("[Loading]", "initViewAsync:" + Thread.currentThread().toString() + "/" + Thread.currentThread().getId());
         BaseGLSurfaceView myGame = new Game(myContext).createRenderer().initView();
         this.switchTo(myGame);
     }

@@ -57,10 +57,9 @@ public class Scene extends BaseDrawableObject {
 
     @Override
     public void initDrawable() {
-        Log.d("Scene", "initTexture");
+        Log.d("Scene", "initDrawable");
 
         textTexture = new StringTextureHolder(myView.mRenderer, "abogt", 64, Typeface.DEFAULT, 128, 0, 255, 0);
-        Log.d("Scene", "smilebox");
         bitmapTexture = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.smilebox);
         bitmapTexture2 = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.streetsand160);
         zooTexture = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.zoo);

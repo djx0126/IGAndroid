@@ -33,6 +33,8 @@ public class BaseGLSurfaceView extends GLSurfaceView {
 
         requestFocus();
         setFocusableInTouchMode(true);
+        Log.d("BaseGLSurfaceView", "created:" + Thread.currentThread().toString() + "/"
+                + Thread.currentThread().getId());
     }
 
     /**

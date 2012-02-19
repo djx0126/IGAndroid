@@ -21,7 +21,8 @@ public class LoadingScene extends BaseDrawableObject {
 
     @Override
     public void initDrawable() {
-        Log.d("LoadingScene", "initTexture");
+        Log.d("LoadingScene", "initDrawable:" + Thread.currentThread().toString() + "/"
+                + Thread.currentThread().getId());
 
         textTexture = new StringTextureHolder(myView.mRenderer, "Loading", 64, Typeface.DEFAULT, 128, 0, 255, 0);
 

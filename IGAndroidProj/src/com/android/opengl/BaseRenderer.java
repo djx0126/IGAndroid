@@ -71,7 +71,8 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
     }
 
     public void onSurfaceCreated(GL10 pGl, EGLConfig config) {
-        Log.d("MyRenderer", "onSurfaceCreated");
+        Log.d("[MyRenderer]", "onSurfaceCreated:" + Thread.currentThread().toString() + "/"
+                + Thread.currentThread().getId());
         gl = pGl;
 
         gl.glDisable(GL10.GL_DITHER);
@@ -93,10 +94,8 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
         if (taskOnCreated != null) {
             taskOnCreated.execute();
         }
-        // System.out.println("[MyRenderer]Created:" +
-        // Thread.currentThread().toString() + "/"
-        // + Thread.currentThread().getId());
-        // Log.d("MyRenderer", "after onSurfaceCreated");
+        Log.d("[MyRenderer]", "after onSurfaceCreated");
+
     }
 
     public BaseRenderer() {
