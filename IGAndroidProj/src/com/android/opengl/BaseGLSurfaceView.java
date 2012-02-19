@@ -33,7 +33,8 @@ public class BaseGLSurfaceView extends GLSurfaceView {
 
         requestFocus();
         setFocusableInTouchMode(true);
-        Log.d("BaseGLSurfaceView", "created:" + Thread.currentThread().toString() + "/"
+        Log.d("BaseGLSurfaceView", "created:"
+                + Thread.currentThread().toString() + "/"
                 + Thread.currentThread().getId());
     }
 
@@ -70,7 +71,8 @@ public class BaseGLSurfaceView extends GLSurfaceView {
      */
     public BaseGLSurfaceView createRenderer() {
 
-        createRenderer(new BaseRenderer(viewWidth, viewHeight).setCreatedTask(new OnRendererCreated()));
+        createRenderer(new BaseRenderer(viewWidth, viewHeight)
+                .setCreatedTask(new OnRendererCreated()));
         return this;
     }
 
@@ -127,6 +129,7 @@ public class BaseGLSurfaceView extends GLSurfaceView {
             // if Looper.loop is used, it will loop until the Looper.quit is
             // called. Or the thread will not end.
             // Looper.loop();
+            // Looper.myLooper().quit();
             return null;
         }
 

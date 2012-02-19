@@ -1,17 +1,32 @@
 package com.android.opengl;
 
-import javax.microedition.khronos.opengles.GL10;
+import java.util.PriorityQueue;
 
 import com.android.object.drawable.IDrawable;
 
-public class BaseLayer implements IDrawable {
+public class BaseLayer implements Comparable<BaseLayer> {
+    protected int priority = 0;
+    protected BaseGLSurfaceView myView;
+    protected PriorityQueue<IDrawable> drawableList;// smaller pri will be out
+                                                    // first
 
-    public void initDrawable(GL10 gl) {
+    public BaseLayer(BaseGLSurfaceView pView) {
+        myView = pView;
+        drawableList = new PriorityQueue<IDrawable>();
 
     }
 
-    public void draw() {
+    public void insertDrawable(IDrawable drawableObj) {
+        drawableList.add(drawableObj);
+    }
 
+    public int compareTo(BaseLayer layerB) {
+        if (this.priority > layerB.priority) {
+            return 1;
+        } else if (this.priority < layerB.priority) {
+            return -1;
+        }
+        return 0;
     }
 
 }

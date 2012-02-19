@@ -33,24 +33,25 @@ public class Scene extends BaseDrawableObject {
 
         textTexture.draw(300, 50);
 
-        textTexture.setText(FormatFloat.toString3(myFPS.getFPS())).updateBitmap();
+        textTexture.setText(FormatFloat.toString3(myFPS.getFPS()))
+                .updateBitmap();
         textTexture.draw(300, 100, 2f);
 
         bitmapTexture2.draw(100, 100, 356, 247);
 
-        bitmapTexture.draw(400, 100, 100.0f, 100.0f);
+        // bitmapTexture.draw(400, 100, 100.0f, 100.0f);
 
         bitmapTexture.draw(500, 200, 100.0f, 100.0f);
 
         zooTexture.draw(300, 200, 200, 100);
-        zooTexture.draw(400, 150, 200, 100);
+        // zooTexture.draw(400, 150, 200, 100);
 
         // bitmapTexture3.item(8).draw(200, 200, 100, 100);
-        bitmapTexture3.item(8).setGLUnit(BaseGLUnit.CENTEREDHALF).draw(200, 300, 100);
+        bitmapTexture3.item(8).setGLUnit(BaseGLUnit.CENTEREDHALF)
+                .draw(200, 300, 100);
 
-        bitmapTexture3.item(13).setGLUnit(BaseGLUnit.RIGHTSLOPEDHALF).draw(500, 300, 100);
-
-        bitmapTexture4.item(0).draw(400, 0, 400, 400);
+        bitmapTexture3.item(13).setGLUnit(BaseGLUnit.RIGHTSLOPEDHALF)
+                .draw(500, 300, 100);
 
         bitmapTexture.draw(600, 300, 100.0f, 100.0f);
     }
@@ -59,16 +60,20 @@ public class Scene extends BaseDrawableObject {
     public void initDrawable() {
         Log.d("Scene", "initDrawable");
 
-        textTexture = new StringTextureHolder(myView.mRenderer, "abogt", 64, Typeface.DEFAULT, 128, 0, 255, 0);
-        bitmapTexture = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.smilebox);
-        bitmapTexture2 = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.streetsand160);
-        zooTexture = new BitmapTextureHolder(myView.mRenderer, myView.myContext, R.drawable.zoo);
+        textTexture = new StringTextureHolder(myView.mRenderer, "abogt", 64,
+                Typeface.DEFAULT, 128, 0, 255, 0);
+        bitmapTexture = new BitmapTextureHolder(myView.mRenderer,
+                myView.myContext, R.drawable.smilebox);
+        bitmapTexture2 = new BitmapTextureHolder(myView.mRenderer,
+                myView.myContext, R.drawable.streetsand160);
+        zooTexture = new BitmapTextureHolder(myView.mRenderer,
+                myView.myContext, R.drawable.zoo);
 
-        bitmapTexture3 = new BitmapTextureArrayHolder(myView.mRenderer, myView.myContext, R.drawable.streetsand160, 5,
-                19);
+        bitmapTexture3 = new BitmapTextureArrayHolder(myView.mRenderer,
+                myView.myContext, R.drawable.streetsand160, 5, 19);
 
-        bitmapTexture4 = new BitmapTextureArrayHolder(myView.mRenderer, myView.myContext, R.drawable.streetsand160, 1,
-                1);
+        bitmapTexture4 = new BitmapTextureArrayHolder(myView.mRenderer,
+                myView.myContext, R.drawable.streetsand160, 1, 1);
 
     }
 

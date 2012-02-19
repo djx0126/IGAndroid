@@ -4,7 +4,8 @@ import javax.microedition.khronos.opengles.GL10;
 
 import com.android.opengl.BaseGLSurfaceView;
 
-public abstract class BaseDrawableObject implements IDrawable {
+public abstract class BaseDrawableObject implements IDrawable,
+        Comparable<BaseDrawableObject> {
     public int posX;
     public int posY;
     public boolean initiated = false;
@@ -18,6 +19,9 @@ public abstract class BaseDrawableObject implements IDrawable {
     }
 
     public final void draw() {
+        if (!initiated && myView.mRenderer.isInitiated) {
+            initDrawable(myView.mRenderer.gl);
+        }
         if (initiated && active) {
             onDraw();
         }
@@ -34,4 +38,37 @@ public abstract class BaseDrawableObject implements IDrawable {
     }
 
     protected abstract void initDrawable();
+
+    public boolean isInitiated() {
+        return initiated;
+    }
+
+    public int compareTo(BaseDrawableObject objB) {
+        // upper right is smaller than lower left
+        if (this.posX > objB.posX && this.posY > objB.posY) {
+            return -1;
+        }
+        if (this.posX < objB.posX && this.posY < objB.posY) {
+            return 1;
+        }
+        if (objB.posX == this.posX) {
+            if (this.posY > objB.posY) {
+                return -1;
+            } else if (this.posY < objB.posY) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        if (objB.posY == this.posY) {
+            if (this.posX > objB.posX) {
+                return -1;
+            } else if (this.posX < objB.posX) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        return 0;
+    }
 }

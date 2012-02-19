@@ -34,12 +34,10 @@ public class BaseOpenGLActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.main);
-
         Log.d("Android3DBasicActivity", "onCreate");
 
         context = this;
-
+        // System.gc();
         initView();
     }
 
@@ -47,16 +45,25 @@ public class BaseOpenGLActivity extends Activity {
         // 去掉标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 设置全屏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         myGLView = new BaseGLSurfaceView(this);
         myGLView.createRenderer().initView();
         setView(myGLView);
-        System.gc();
+
     }
 
     public void setView(BaseGLSurfaceView pView) {
+        // Log.d("[BaseActivity]", "setView:" +
+        // Thread.currentThread().toString()
+        // + "/" + Thread.currentThread().getId());
+        // Log.d("BaseActivity", "Old View:" + myGLView.mRenderer +
+        // "  next view:"
+        // + pView.mRenderer);
+
         this.myGLView = pView;
+        System.gc();
         setContentView(myGLView);
     }
 

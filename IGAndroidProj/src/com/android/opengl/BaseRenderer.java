@@ -11,13 +11,12 @@ import com.android.object.drawable.IDrawable;
 import com.android.utils.FPS;
 
 public class BaseRenderer implements GLSurfaceView.Renderer {
-    // private final Context context;
     public GL10 gl;
     public static final float Z = -1f;
-    public static final int MSG_CREATED = 1;
     public static final float TARGETFPS = 60f;
     public int viewWidth = 0;
     public int viewHeight = 0;
+    public boolean isInitiated = false;
     protected IDrawable myDrawable;
     protected AsyncTask taskOnCreated;
 
@@ -61,8 +60,9 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
         gl.glMatrixMode(GL10.GL_PROJECTION); // set matrix to projection mode
         gl.glLoadIdentity(); // reset the matrix to its default state
         // set leftdown(0,0) rightup(viewWidth,viewHeight)
-        gl.glFrustumf(-viewWidth / 2, viewWidth / 2, -viewHeight / 2, viewHeight / 2, 1f, 3f); // apply
-                                                                                               // the
+        gl.glFrustumf(-viewWidth / 2, viewWidth / 2, -viewHeight / 2,
+                viewHeight / 2, 1f, 3f); // apply
+                                         // the
         // projection
         // matrix
 
@@ -71,7 +71,8 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
     }
 
     public void onSurfaceCreated(GL10 pGl, EGLConfig config) {
-        Log.d("[MyRenderer]", "onSurfaceCreated:" + Thread.currentThread().toString() + "/"
+        Log.d("[MyRenderer]", "onSurfaceCreated:"
+                + Thread.currentThread().toString() + "/"
                 + Thread.currentThread().getId());
         gl = pGl;
 
@@ -93,7 +94,9 @@ public class BaseRenderer implements GLSurfaceView.Renderer {
 
         if (taskOnCreated != null) {
             taskOnCreated.execute();
+            taskOnCreated = null;
         }
+        isInitiated = true;
         Log.d("[MyRenderer]", "after onSurfaceCreated");
 
     }
