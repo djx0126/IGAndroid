@@ -18,9 +18,7 @@ public class PriorityLayer extends BaseLayer {
 
     @Override
     public void insertDrawable(IDrawable drawableObj) {
-        synchronized (addList) {
-            addList.add(drawableObj);
-        }
+        addList.add(drawableObj);
     }
 
     @Override

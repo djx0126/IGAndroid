@@ -14,12 +14,17 @@ public class Game extends BaseGLSurfaceView {
         super(context);
     }
 
+    protected void initTexture() {
+
+    }
+
     @Override
     public BaseGLSurfaceView initView() {
         Log.d("Game", "initView");
         myScene = new Scene(this);
 
         mRenderer.setDrawable(myScene);
+
         return this;
     }
 

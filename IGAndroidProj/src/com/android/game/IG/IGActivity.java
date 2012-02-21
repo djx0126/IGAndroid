@@ -12,12 +12,13 @@ public class IGActivity extends BaseOpenGLActivity {
         // 去掉标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 设置全屏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         myGLView = new Loading(this).setViewWidthHeight(800, 480);
         myGLView.createRenderer().initView();
 
         setView(myGLView);
+
     }
+
 }

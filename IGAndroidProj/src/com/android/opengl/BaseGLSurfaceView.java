@@ -33,8 +33,7 @@ public class BaseGLSurfaceView extends GLSurfaceView {
 
         requestFocus();
         setFocusableInTouchMode(true);
-        Log.d("BaseGLSurfaceView", "created:"
-                + Thread.currentThread().toString() + "/"
+        Log.d("BaseGLSurfaceView", "created:" + Thread.currentThread().toString() + "/"
                 + Thread.currentThread().getId());
     }
 
@@ -71,8 +70,7 @@ public class BaseGLSurfaceView extends GLSurfaceView {
      */
     public BaseGLSurfaceView createRenderer() {
 
-        createRenderer(new BaseRenderer(viewWidth, viewHeight)
-                .setCreatedTask(new OnRendererCreated()));
+        createRenderer(new BaseRenderer(viewWidth, viewHeight).setCreatedTask(new OnRendererCreated()));
         return this;
     }
 
@@ -83,6 +81,7 @@ public class BaseGLSurfaceView extends GLSurfaceView {
         mRenderer = pRenderer;
         if (mRenderer != null) {
             setRenderer(mRenderer);
+
         }
         return this;
 
